@@ -20,9 +20,17 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="UO9-31-BXs"/>
-                                    <barButtonItem style="plain" systemItem="camera" id="7jj-Y7-iWj"/>
+                                    <barButtonItem style="plain" systemItem="camera" id="7jj-Y7-iWj">
+                                        <connections>
+                                            <action selector="didTapCameraButton:" destination="BYZ-38-t0r" id="0iu-fa-ckX"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="wXN-Jo-Sl1"/>
-                                    <barButtonItem title="Album" width="42" style="plain" id="AuG-H7-1RJ"/>
+                                    <barButtonItem title="Album" width="42" style="plain" id="AuG-H7-1RJ">
+                                        <connections>
+                                            <action selector="didTapAlbumButton:" destination="BYZ-38-t0r" id="kB4-5D-Eig"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="FmR-jV-6ET"/>
                                 </items>
                             </toolbar>
@@ -35,6 +43,10 @@
                             <constraint firstItem="S4L-00-VJE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="p99-Td-Coe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="albumButton" destination="AuG-H7-1RJ" id="rDj-tV-0wT"/>
+                        <outlet property="cameraButton" destination="7jj-Y7-iWj" id="zWw-dt-hD4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

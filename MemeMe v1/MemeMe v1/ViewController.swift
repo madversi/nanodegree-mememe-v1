@@ -9,27 +9,20 @@ import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate {
 
-    @IBOutlet weak var imagePickerView: UIImageView!
+    // MARK: Outlets
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
+    @IBOutlet weak var albumButton: UIBarButtonItem!
 
-    @IBAction func pickAnImage(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        present(pickerController, animated: true, completion: nil)
+    // MARK: Button actions
+    @IBAction func didTapCameraButton(_ sender: Any) {
     }
+
+    @IBAction func didTapAlbumButton(_ sender: Any) {
+    }
+
 }
 
+// MARK: UIImagePickerControllerDelegate
 extension ViewController: UIImagePickerControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        let alert = UIAlertController(title: "Ops", message: "Have u canceled?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.cropRect] as? UIImage {
-            imagePickerView.image = image
-        }
-    }
 }
