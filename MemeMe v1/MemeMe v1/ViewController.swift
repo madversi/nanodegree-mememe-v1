@@ -9,6 +9,14 @@ import AVFoundation
 import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate {
+    // MARK: Private Properties
+    private var deviceHasCamera: Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+    private var deviceHasPhotoLibrary: Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+    }
+
     // MARK: Outlets
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var albumButton: UIBarButtonItem!
@@ -24,45 +32,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkCameraAuthorizationStatus()
+        cameraButton.isEnabled = deviceHasCamera
+        albumButton.isEnabled = deviceHasPhotoLibrary
     }
 
     // MARK: Private functions
-    private func checkCameraAuthorizationStatus() {
-        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        switch cameraAuthorizationStatus {
-        case .denied, .restricted:
-            enableCameraButton(false)
-            showNeedCameraAuthorizationPopup()
-            break
-        case .notDetermined:
-            enableCameraButton(false)
-            askUserForCameraPermission()
-            break
-        case .authorized:
-            enableCameraButton(true)
-            break
-        default:
-            break
-        }
-    }
-
-    private func showNeedCameraAuthorizationPopup() {
-        let alert = UIAlertController(title: "Unable to access camera", message: "You should allow camera access on OS settings.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
-    }
-
-    private func askUserForCameraPermission() {
-        AVCaptureDevice.requestAccess(for: .video) { [weak self] cameraAccessAllowed in
-            self?.enableCameraButton(cameraAccessAllowed)
-        }
-    }
-
-    private func enableCameraButton(_ isEnabled: Bool) {
-        cameraButton.isEnabled = isEnabled
-    }
 }
 
 // MARK: UIImagePickerControllerDelegate
