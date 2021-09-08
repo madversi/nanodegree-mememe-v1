@@ -8,7 +8,7 @@
 import AVFoundation
 import UIKit
 
-class ViewController: UIViewController, UINavigationControllerDelegate {
+class ViewController: UIViewController {
     // MARK: Private Properties
     private var deviceHasCamera: Bool {
         return UIImagePickerController.isSourceTypeAvailable(.camera)
@@ -24,9 +24,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
     // MARK: Button actions
     @IBAction func didTapCameraButton(_ sender: Any) {
+        let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
+        present(imagePickerController, animated: true)
     }
 
     @IBAction func didTapAlbumButton(_ sender: Any) {
+        let imagePickerController = buildImagePickerControllerFor(sourceType: .photoLibrary)
+        present(imagePickerController, animated: true)
     }
 
     // MARK: Lifecycle
@@ -37,9 +41,28 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
 
     // MARK: Private functions
+    private func buildImagePickerControllerFor(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = sourceType
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        return imagePickerController
+    }
 }
 
 // MARK: UIImagePickerControllerDelegate
 extension ViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
 
+        guard let image = info[.originalImage] as? UIImage else {
+            print("Fail to pick the image.")
+            return
+        }
+
+        imageView.image = image
+    }
 }
+
+// MARK: UINavigationControllerDelegate
+extension ViewController: UINavigationControllerDelegate { }
