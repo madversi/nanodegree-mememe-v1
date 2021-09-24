@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var albumButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
 
-    // MARK: Button actions
+    // MARK: Actions
     @IBAction func didTapCameraButton(_ sender: Any) {
         let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
         present(imagePickerController, animated: true)
@@ -36,17 +36,20 @@ class ViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        cameraButton.isEnabled = deviceHasCamera
-        albumButton.isEnabled = deviceHasPhotoLibrary
+        setUpButtonsVisibility()
     }
 
     // MARK: Private functions
     private func buildImagePickerControllerFor(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = sourceType
-        imagePickerController.allowsEditing = true
         imagePickerController.delegate = self
         return imagePickerController
+    }
+
+    private func setUpButtonsVisibility() {
+        cameraButton.isEnabled = deviceHasCamera
+        albumButton.isEnabled = deviceHasPhotoLibrary
     }
 }
 
@@ -65,4 +68,5 @@ extension ViewController: UIImagePickerControllerDelegate {
 }
 
 // MARK: UINavigationControllerDelegate
-extension ViewController: UINavigationControllerDelegate { }
+extension ViewController: UINavigationControllerDelegate {
+}

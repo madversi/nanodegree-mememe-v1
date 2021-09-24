@@ -34,7 +34,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="FmR-jV-6ET"/>
                                 </items>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWT-KS-d1R">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWT-KS-d1R">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                             </imageView>
                         </subviews>
