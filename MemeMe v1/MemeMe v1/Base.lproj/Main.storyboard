@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bM2-Kl-KV0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWT-KS-d1R">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bM2-Kl-KV0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="action" id="RSc-K4-kct"/>
@@ -24,9 +28,6 @@
                                     <barButtonItem title="Cancel" id="Z4a-MX-YfS"/>
                                 </items>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWT-KS-d1R">
-                                <rect key="frame" x="0.0" y="44" width="375" height="579"/>
-                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="S4L-00-VJE">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
@@ -50,15 +51,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="S4L-00-VJE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1rz-VI-HGc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GWT-KS-d1R" secondAttribute="bottom" id="4Vz-ca-3ti"/>
                             <constraint firstItem="bM2-Kl-KV0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="BM2-sy-6wX"/>
-                            <constraint firstItem="GWT-KS-d1R" firstAttribute="top" secondItem="bM2-Kl-KV0" secondAttribute="bottom" id="KPu-gf-PYH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GWT-KS-d1R" secondAttribute="trailing" id="PW2-lZ-Bal"/>
                             <constraint firstItem="bM2-Kl-KV0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="am0-o5-BnZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="S4L-00-VJE" secondAttribute="bottom" id="c7K-Xg-3R0"/>
                             <constraint firstItem="bM2-Kl-KV0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="g4F-AU-vQb"/>
+                            <constraint firstItem="GWT-KS-d1R" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hnT-Hc-oZB"/>
                             <constraint firstItem="GWT-KS-d1R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="n9A-gc-gOp"/>
                             <constraint firstItem="S4L-00-VJE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="p99-Td-Coe"/>
-                            <constraint firstItem="S4L-00-VJE" firstAttribute="top" secondItem="GWT-KS-d1R" secondAttribute="bottom" id="zcw-vA-JT6"/>
                         </constraints>
                     </view>
                     <connections>
