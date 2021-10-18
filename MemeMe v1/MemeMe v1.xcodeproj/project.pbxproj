@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AAF0551271E16E6009C975E /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AAF0550271E16E6009C975E /* impact.ttf */; };
 		0AE76F0626CA98F2009A38CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE76F0526CA98F2009A38CC /* AppDelegate.swift */; };
 		0AE76F0826CA98F2009A38CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE76F0726CA98F2009A38CC /* SceneDelegate.swift */; };
 		0AE76F0A26CA98F2009A38CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE76F0926CA98F2009A38CC /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AAF0550271E16E6009C975E /* impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = impact.ttf; sourceTree = "<group>"; };
 		0AE76F0226CA98F2009A38CC /* MemeMe v1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MemeMe v1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE76F0526CA98F2009A38CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AE76F0726CA98F2009A38CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AAF0552271E1700009C975E /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0AAF0550271E16E6009C975E /* impact.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		0AE76EF926CA98F2009A38CC = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,7 @@
 		0AE76F0426CA98F2009A38CC /* MemeMe v1 */ = {
 			isa = PBXGroup;
 			children = (
+				0AAF0552271E1700009C975E /* fonts */,
 				0AE76F0526CA98F2009A38CC /* AppDelegate.swift */,
 				0AE76F0726CA98F2009A38CC /* SceneDelegate.swift */,
 				0AE76F0926CA98F2009A38CC /* ViewController.swift */,
@@ -124,6 +135,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AAF0551271E16E6009C975E /* impact.ttf in Resources */,
 				0AE76F1226CA98F4009A38CC /* LaunchScreen.storyboard in Resources */,
 				0AE76F0F26CA98F4009A38CC /* Assets.xcassets in Resources */,
 				0AE76F0D26CA98F2009A38CC /* Main.storyboard in Resources */,
