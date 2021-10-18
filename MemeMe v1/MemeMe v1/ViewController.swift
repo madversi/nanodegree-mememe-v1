@@ -18,11 +18,11 @@ class ViewController: UIViewController {
     }
 
     // MARK: Outlets
-    @IBOutlet weak var cameraButton: UIBarButtonItem!
-    @IBOutlet weak var albumButton: UIBarButtonItem!
-    @IBOutlet weak var imageView: UIImageView!
-
-    // MARK: Actions
+    @IBOutlet private weak var cameraButton: UIBarButtonItem!
+    @IBOutlet private weak var albumButton: UIBarButtonItem!
+    @IBOutlet private weak var imageView: UIImageView!
+    
+    // MARK: IB Actions
     @IBAction func didTapCameraButton(_ sender: Any) {
         let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
         present(imagePickerController, animated: true)
@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpButtonsVisibility()
+        setUpTextFields()
     }
 
     // MARK: Private functions
@@ -51,6 +52,9 @@ class ViewController: UIViewController {
         cameraButton.isEnabled = deviceHasCamera
         albumButton.isEnabled = deviceHasPhotoLibrary
     }
+
+    private func setUpTextFields(shouldHide: Bool = true) {
+    }
 }
 
 // MARK: UIImagePickerControllerDelegate
@@ -62,11 +66,17 @@ extension ViewController: UIImagePickerControllerDelegate {
             print("Fail to pick the image.")
             return
         }
-
         imageView.image = image
+        setUpTextFields(shouldHide: false)
     }
 }
 
 // MARK: UINavigationControllerDelegate
 extension ViewController: UINavigationControllerDelegate {
+}
+
+// MARK: UITextFieldDelegate
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+    }
 }
