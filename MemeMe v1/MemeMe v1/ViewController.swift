@@ -38,8 +38,8 @@ class ViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpButtonsVisibility()
-        setUpTextFields()
+        setUpScreenElementsVisibility()
+        setUpDefaultTextFields()
     }
 
     // MARK: Private functions
@@ -50,18 +50,24 @@ class ViewController: UIViewController {
         return imagePickerController
     }
 
-    private func setUpButtonsVisibility() {
+    private func setUpScreenElementsVisibility() {
         cameraButton.isEnabled = deviceHasCamera
         albumButton.isEnabled = deviceHasPhotoLibrary
+        topTextField.isHidden = true
+        bottomTextField.isHidden = true
     }
 
-    private func setUpTextFields(shouldHide: Bool = true) {
-        let attributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
+    private func setUpDefaultTextFields(shouldHide: Bool = true) {
+        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
                                                           .strokeColor: UIColor.black,
                                                           .foregroundColor: UIColor.white]
-        let attributedText = NSAttributedString(string: "Text", attributes: attributes)
-        topTextField.attributedText = attributedText
-        bottomTextField.attributedText = attributedText
+        let topTextWithAttributes = NSAttributedString(string: "TOP", attributes: textAttributes)
+        let bottomTextWithAttributes = NSAttributedString(string: "BOTTOM", attributes: textAttributes)
+        topTextField.attributedText = topTextWithAttributes
+        bottomTextField.attributedText = bottomTextWithAttributes
+
+        topTextField.isHidden = shouldHide
+        bottomTextField.isHidden = shouldHide
     }
 }
 
@@ -71,11 +77,11 @@ extension ViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true)
 
         guard let image = info[.originalImage] as? UIImage else {
-            print("Fail to pick the image.")
+            print("Failed to pick the image.")
             return
         }
         imageView.image = image
-        setUpTextFields(shouldHide: false)
+        setUpDefaultTextFields(shouldHide: false)
     }
 }
 
