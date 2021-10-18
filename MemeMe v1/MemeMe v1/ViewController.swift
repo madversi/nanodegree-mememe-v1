@@ -21,7 +21,9 @@ class ViewController: UIViewController {
     @IBOutlet private weak var cameraButton: UIBarButtonItem!
     @IBOutlet private weak var albumButton: UIBarButtonItem!
     @IBOutlet private weak var imageView: UIImageView!
-    
+    @IBOutlet private weak var topTextField: UITextField!
+    @IBOutlet private weak var bottomTextField: UITextField!
+
     // MARK: IB Actions
     @IBAction func didTapCameraButton(_ sender: Any) {
         let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
@@ -54,6 +56,12 @@ class ViewController: UIViewController {
     }
 
     private func setUpTextFields(shouldHide: Bool = true) {
+        let attributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
+                                                          .strokeColor: UIColor.black,
+                                                          .foregroundColor: UIColor.white]
+        let attributedText = NSAttributedString(string: "Text", attributes: attributes)
+        topTextField.attributedText = attributedText
+        bottomTextField.attributedText = attributedText
     }
 }
 
@@ -77,6 +85,4 @@ extension ViewController: UINavigationControllerDelegate {
 
 // MARK: UITextFieldDelegate
 extension ViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
 }
