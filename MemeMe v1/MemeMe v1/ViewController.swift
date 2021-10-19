@@ -55,7 +55,6 @@ class ViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpScreenElementsVisibility()
         setUpScreen()
     }
 
@@ -67,14 +66,12 @@ class ViewController: UIViewController {
         return imagePickerController
     }
 
-    private func setUpScreenElementsVisibility() {
-        cameraButton.isEnabled = deviceHasCamera
-        albumButton.isEnabled = deviceHasPhotoLibrary
-        topTextField.isHidden = true
-        bottomTextField.isHidden = true
-    }
-
     private func setUpScreen(shouldHideTextFields: Bool = true, with image: UIImage? = nil) {
+        cameraButton.isEnabled = deviceHasCamera && image == nil
+        albumButton.isEnabled = deviceHasPhotoLibrary && image == nil
+        shareButton.isEnabled = image != nil ? true : false
+        cancelButton.isEnabled = image != nil ? true : false
+
         topTextField.clearsOnBeginEditing = true
         topTextField.attributedText = buildNSAttributedString(with: "TOP")
         topTextField.isHidden = shouldHideTextFields
