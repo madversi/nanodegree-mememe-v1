@@ -66,10 +66,12 @@ class ViewController: UIViewController {
     }
 
     private func setUpDefaultTextFields(shouldHide: Bool = true) {
+        topTextField.clearsOnBeginEditing = true
         topTextField.attributedText = buildNSAttributedString(with: "TOP")
         topTextField.isHidden = shouldHide
         topTextField.delegate = self
 
+        bottomTextField.clearsOnBeginEditing = true
         bottomTextField.attributedText = buildNSAttributedString(with: "BOTTOM")
         bottomTextField.isHidden = shouldHide
         bottomTextField.delegate = self
@@ -103,4 +105,6 @@ extension ViewController: UINavigationControllerDelegate {
 
 // MARK: UITextFieldDelegate
 extension ViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+    }
 }
