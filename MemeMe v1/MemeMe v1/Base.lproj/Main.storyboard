@@ -46,9 +46,17 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bM2-Kl-KV0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="RSc-K4-kct"/>
+                                    <barButtonItem systemItem="action" id="RSc-K4-kct">
+                                        <connections>
+                                            <action selector="didTapShareButton:" destination="BYZ-38-t0r" id="9Ne-pQ-bNF"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="vGN-ok-mRZ"/>
-                                    <barButtonItem title="Cancel" id="Z4a-MX-YfS"/>
+                                    <barButtonItem title="Cancel" id="Z4a-MX-YfS">
+                                        <connections>
+                                            <action selector="didTapCancelButton:" destination="BYZ-38-t0r" id="VsQ-e6-WQN"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="S4L-00-VJE">
@@ -95,7 +103,9 @@
                         <outlet property="albumButton" destination="AuG-H7-1RJ" id="rDj-tV-0wT"/>
                         <outlet property="bottomTextField" destination="LSJ-Iy-Vts" id="kip-lJ-LCK"/>
                         <outlet property="cameraButton" destination="7jj-Y7-iWj" id="zWw-dt-hD4"/>
+                        <outlet property="cancelButton" destination="Z4a-MX-YfS" id="xqN-bh-uwN"/>
                         <outlet property="imageView" destination="GWT-KS-d1R" id="6Rp-yP-VQV"/>
+                        <outlet property="shareButton" destination="RSc-K4-kct" id="YRy-tH-Drc"/>
                         <outlet property="topTextField" destination="C0J-2o-COR" id="k62-5S-zaV"/>
                     </connections>
                 </viewController>

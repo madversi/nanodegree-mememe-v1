@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     }
 
     // MARK: Outlets
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet private weak var cameraButton: UIBarButtonItem!
     @IBOutlet private weak var albumButton: UIBarButtonItem!
     @IBOutlet private weak var imageView: UIImageView!
@@ -35,6 +37,13 @@ class ViewController: UIViewController {
         present(imagePickerController, animated: true)
     }
 
+    @IBAction func didTapShareButton(_ sender: Any) {
+    }
+
+    @IBAction func didTapCancelButton(_ sender: Any) {
+        setUpScreen()
+    }
+
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
         guard let textFieldText = sender.text else {
             sender.attributedText = buildNSAttributedString(with: "")
@@ -47,7 +56,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScreenElementsVisibility()
-        setUpDefaultTextFields()
+        setUpScreen()
     }
 
     // MARK: Private functions
@@ -65,16 +74,18 @@ class ViewController: UIViewController {
         bottomTextField.isHidden = true
     }
 
-    private func setUpDefaultTextFields(shouldHide: Bool = true) {
+    private func setUpScreen(shouldHideTextFields: Bool = true, with image: UIImage? = nil) {
         topTextField.clearsOnBeginEditing = true
         topTextField.attributedText = buildNSAttributedString(with: "TOP")
-        topTextField.isHidden = shouldHide
+        topTextField.isHidden = shouldHideTextFields
         topTextField.delegate = self
 
         bottomTextField.clearsOnBeginEditing = true
         bottomTextField.attributedText = buildNSAttributedString(with: "BOTTOM")
-        bottomTextField.isHidden = shouldHide
+        bottomTextField.isHidden = shouldHideTextFields
         bottomTextField.delegate = self
+
+        imageView.image = image
     }
 
     private func buildNSAttributedString(with text: String) -> NSAttributedString {
@@ -94,8 +105,7 @@ extension ViewController: UIImagePickerControllerDelegate {
             print("Failed to pick the image.")
             return
         }
-        imageView.image = image
-        setUpDefaultTextFields(shouldHide: false)
+        setUpScreen(shouldHideTextFields: false, with: image)
     }
 }
 
