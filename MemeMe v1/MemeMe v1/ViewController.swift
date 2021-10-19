@@ -36,14 +36,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
-        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
-                                                          .strokeColor: UIColor.black,
-                                                          .foregroundColor: UIColor.white]
         guard let textFieldText = sender.text else {
             return
         }
-        let textWithAttributes = NSAttributedString(string: textFieldText, attributes: textAttributes)
-        sender.attributedText = textWithAttributes
+        sender.attributedText = buildNSAttributedString(with: textFieldText)
     }
 
     // MARK: Lifecycle
@@ -69,19 +65,20 @@ class ViewController: UIViewController {
     }
 
     private func setUpDefaultTextFields(shouldHide: Bool = true) {
-        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
-                                                          .strokeColor: UIColor.black,
-                                                          .foregroundColor: UIColor.white]
-        let topTextWithAttributes = NSAttributedString(string: "TOP", attributes: textAttributes)
-        let bottomTextWithAttributes = NSAttributedString(string: "BOTTOM", attributes: textAttributes)
-        topTextField.attributedText = topTextWithAttributes
-        topTextField.typingAttributes = [.strokeColor: UIColor.black]
+        topTextField.attributedText = buildNSAttributedString(with: "TOP")
         topTextField.isHidden = shouldHide
         topTextField.delegate = self
 
         bottomTextField.isHidden = shouldHide
-        bottomTextField.attributedText = bottomTextWithAttributes
+        bottomTextField.attributedText = buildNSAttributedString(with: "BOTTOM")
         bottomTextField.delegate = self
+    }
+
+    private func buildNSAttributedString(with text: String) -> NSAttributedString {
+        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
+                                                          .strokeColor: UIColor.black,
+                                                          .foregroundColor: UIColor.white]
+        return NSAttributedString(string: text, attributes: textAttributes)
     }
 }
 
