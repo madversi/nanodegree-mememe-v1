@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     }
 
     private func buildNSAttributedString(with text: String) -> NSAttributedString {
-        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
+        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -2.0,
                                                           .strokeColor: UIColor.black,
                                                           .foregroundColor: UIColor.white]
         return NSAttributedString(string: text, attributes: textAttributes)
