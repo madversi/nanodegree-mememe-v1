@@ -37,6 +37,7 @@ class ViewController: UIViewController {
 
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
         guard let textFieldText = sender.text else {
+            sender.attributedText = buildNSAttributedString(with: "")
             return
         }
         sender.attributedText = buildNSAttributedString(with: textFieldText)
@@ -69,8 +70,8 @@ class ViewController: UIViewController {
         topTextField.isHidden = shouldHide
         topTextField.delegate = self
 
-        bottomTextField.isHidden = shouldHide
         bottomTextField.attributedText = buildNSAttributedString(with: "BOTTOM")
+        bottomTextField.isHidden = shouldHide
         bottomTextField.delegate = self
     }
 
