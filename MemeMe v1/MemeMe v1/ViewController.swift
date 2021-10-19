@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var topTextField: UITextField!
     @IBOutlet private weak var bottomTextField: UITextField!
 
-    // MARK: IB Actions
+    // MARK: Actions
     @IBAction func didTapCameraButton(_ sender: Any) {
         let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
         present(imagePickerController, animated: true)
@@ -33,6 +33,17 @@ class ViewController: UIViewController {
     @IBAction func didTapAlbumButton(_ sender: Any) {
         let imagePickerController = buildImagePickerControllerFor(sourceType: .photoLibrary)
         present(imagePickerController, animated: true)
+    }
+
+    @IBAction func textFieldEditingChanged(_ sender: UITextField) {
+        let textAttributes: [NSAttributedString.Key : Any] = [.strokeWidth: -1.0,
+                                                          .strokeColor: UIColor.black,
+                                                          .foregroundColor: UIColor.white]
+        guard let textFieldText = sender.text else {
+            return
+        }
+        let textWithAttributes = NSAttributedString(string: textFieldText, attributes: textAttributes)
+        sender.attributedText = textWithAttributes
     }
 
     // MARK: Lifecycle
@@ -64,10 +75,13 @@ class ViewController: UIViewController {
         let topTextWithAttributes = NSAttributedString(string: "TOP", attributes: textAttributes)
         let bottomTextWithAttributes = NSAttributedString(string: "BOTTOM", attributes: textAttributes)
         topTextField.attributedText = topTextWithAttributes
-        bottomTextField.attributedText = bottomTextWithAttributes
-
+        topTextField.typingAttributes = [.strokeColor: UIColor.black]
         topTextField.isHidden = shouldHide
+        topTextField.delegate = self
+
         bottomTextField.isHidden = shouldHide
+        bottomTextField.attributedText = bottomTextWithAttributes
+        bottomTextField.delegate = self
     }
 }
 
