@@ -18,8 +18,8 @@ class ViewController: UIViewController {
     }
 
     // MARK: Outlets
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet private weak var cancelButton: UIBarButtonItem!
+    @IBOutlet private weak var shareButton: UIBarButtonItem!
     @IBOutlet private weak var cameraButton: UIBarButtonItem!
     @IBOutlet private weak var albumButton: UIBarButtonItem!
     @IBOutlet private weak var imageView: UIImageView!
