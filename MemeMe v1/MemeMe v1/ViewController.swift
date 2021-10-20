@@ -67,6 +67,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScreen()
+        subscribeToKeyboardNotifications()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
     }
 
     // MARK: Private functions
@@ -80,17 +90,19 @@ class ViewController: UIViewController {
     private func setUpScreen(shouldHideTextFields: Bool = true, with image: UIImage? = nil) {
         cameraButton.isEnabled = deviceHasCamera && image == nil
         albumButton.isEnabled = deviceHasPhotoLibrary && image == nil
-        shareButton.isEnabled = image != nil ? true : false
-        cancelButton.isEnabled = image != nil ? true : false
+        shareButton.isEnabled = image != nil
+        cancelButton.isEnabled = image != nil
 
         topTextField.clearsOnBeginEditing = true
         topTextField.attributedText = buildNSAttributedString(with: "TOP")
         topTextField.isHidden = shouldHideTextFields
+        topTextField.returnKeyType = .next
         topTextField.delegate = self
 
         bottomTextField.clearsOnBeginEditing = true
         bottomTextField.attributedText = buildNSAttributedString(with: "BOTTOM")
         bottomTextField.isHidden = shouldHideTextFields
+        bottomTextField.returnKeyType = .done
         bottomTextField.delegate = self
 
         imageView.image = image
@@ -120,6 +132,35 @@ class ViewController: UIViewController {
     private func saveMemeIntoPhotos(meme: UIImage) {
         UIImageWriteToSavedPhotosAlbum(meme, nil, nil, nil)
     }
+
+    private func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y = -getKeyboardHeight(notification)
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y = 0
+        }
+    }
+
+    private func getKeyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
 }
 
 // MARK: UIImagePickerControllerDelegate
@@ -138,4 +179,12 @@ extension ViewController: UIImagePickerControllerDelegate {
 extension ViewController: UINavigationControllerDelegate {}
 
 // MARK: UITextFieldDelegate
-extension ViewController: UITextFieldDelegate {}
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if textField.tag == 0 {
+            bottomTextField.becomeFirstResponder()
+        }
+        return true
+    }
+}
