@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     }
 
     // MARK: Outlets
+    @IBOutlet private weak var memeContainerView: UIView!
     @IBOutlet private weak var cancelButton: UIBarButtonItem!
     @IBOutlet private weak var shareButton: UIBarButtonItem!
     @IBOutlet private weak var cameraButton: UIBarButtonItem!
@@ -38,6 +39,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func didTapShareButton(_ sender: Any) {
+        let memeToShare = mergeImageWithTextFieldsIntoASingleImage()
+        let itemsToShare = [memeToShare]
+        let activityView = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        present(activityView, animated: true)
     }
 
     @IBAction func didTapCancelButton(_ sender: Any) {
@@ -91,6 +96,14 @@ class ViewController: UIViewController {
                                                           .foregroundColor: UIColor.white]
         return NSAttributedString(string: text, attributes: textAttributes)
     }
+
+    private func mergeImageWithTextFieldsIntoASingleImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: memeContainerView.bounds.size)
+        let image = renderer.image { ctx in
+            memeContainerView.drawHierarchy(in: memeContainerView.bounds, afterScreenUpdates: true)
+        }
+        return image
+    }
 }
 
 // MARK: UIImagePickerControllerDelegate
@@ -107,11 +120,7 @@ extension ViewController: UIImagePickerControllerDelegate {
 }
 
 // MARK: UINavigationControllerDelegate
-extension ViewController: UINavigationControllerDelegate {
-}
+extension ViewController: UINavigationControllerDelegate {}
 
 // MARK: UITextFieldDelegate
-extension ViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-}
+extension ViewController: UITextFieldDelegate {}
