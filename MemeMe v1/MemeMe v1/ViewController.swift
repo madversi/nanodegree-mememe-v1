@@ -38,10 +38,16 @@ class ViewController: UIViewController {
         present(imagePickerController, animated: true)
     }
 
-    @objc @IBAction func didTapShareButton(_ sender: Any) {
+    @IBAction func didTapShareButton(_ sender: Any) {
         let memeToShare = mergeImageWithTextFieldsIntoASingleImage()
         let itemsToShare = [memeToShare]
         let activityView = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+
+        activityView.completionWithItemsHandler = { [weak self] (_, completed: Bool, _, _) in
+            if completed {
+                self?.saveMemeIntoPhotos(meme: memeToShare)
+            }
+        }
         present(activityView, animated: true)
     }
 
@@ -100,7 +106,7 @@ class ViewController: UIViewController {
     private func mergeImageWithTextFieldsIntoASingleImage() -> UIImage {
         disableAnyCursorActive()
         let renderer = UIGraphicsImageRenderer(size: memeContainerView.bounds.size)
-        let image = renderer.image { ctx in
+        let image = renderer.image { _ in
             memeContainerView.drawHierarchy(in: memeContainerView.bounds, afterScreenUpdates: true)
         }
         return image
@@ -110,13 +116,16 @@ class ViewController: UIViewController {
         topTextField.endEditing(true)
         bottomTextField.endEditing(true)
     }
+
+    private func saveMemeIntoPhotos(meme: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(meme, nil, nil, nil)
+    }
 }
 
 // MARK: UIImagePickerControllerDelegate
 extension ViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
-
         guard let image = info[.originalImage] as? UIImage else {
             print("Failed to pick the image.")
             return
