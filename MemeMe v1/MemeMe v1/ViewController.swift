@@ -67,11 +67,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScreen()
-        subscribeToKeyboardNotifications()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         topTextField.clearsOnBeginEditing = true
         topTextField.attributedText = buildNSAttributedString(with: "TOP")
         topTextField.isHidden = shouldHideTextFields
-        topTextField.returnKeyType = .next
+        topTextField.returnKeyType = .done
         topTextField.delegate = self
 
         bottomTextField.clearsOnBeginEditing = true
@@ -182,9 +182,6 @@ extension ViewController: UINavigationControllerDelegate {}
 extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if textField.tag == 0 {
-            bottomTextField.becomeFirstResponder()
-        }
         return true
     }
 }
