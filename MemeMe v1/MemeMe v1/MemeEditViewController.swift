@@ -114,19 +114,20 @@ class MemeEditViewController: UIViewController {
     }
 
     private func addInMemeList(meme: Meme) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        appDelegate?.memes.append(meme)
+        AppDelegate.memes.append(meme)
     }
 
     @objc private func keyboardWillShow(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
+            view.setNeedsLayout()
         }
     }
 
     @objc private func keyboardWillHide(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = 0
+            view.setNeedsLayout()
         }
     }
 

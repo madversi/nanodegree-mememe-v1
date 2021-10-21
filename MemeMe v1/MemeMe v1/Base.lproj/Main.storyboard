@@ -118,7 +118,13 @@
                             <constraint firstItem="wE1-Xw-p4E" firstAttribute="top" secondItem="fAB-zH-AWo" secondAttribute="top" id="wXi-UX-Z6t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sent Memes" id="95S-fa-tsF"/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="95S-fa-tsF">
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="5Wx-tD-lq8">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="kJR-Ka-99q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="memesTableView" destination="wE1-Xw-p4E" id="cre-TI-P0U"/>
                     </connections>
@@ -242,6 +248,7 @@
                             <constraint firstItem="J9j-Y5-dqS" firstAttribute="top" secondItem="bM2-Kl-KV0" secondAttribute="bottom" id="qFd-hR-IiU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="QRg-jS-DX5"/>
                     <connections>
                         <outlet property="albumButton" destination="AuG-H7-1RJ" id="rDj-tV-0wT"/>
                         <outlet property="bottomTextField" destination="LSJ-Iy-Vts" id="kip-lJ-LCK"/>
@@ -255,13 +262,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914" y="220"/>
+            <point key="canvasLocation" x="753" y="-109"/>
         </scene>
-        <!--Item 1-->
+        <!--Navigation Controller-->
         <scene sceneID="nsW-pN-ujG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NYX-nb-vp5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="ud9-La-Mbv"/>
+                    <tabBarItem key="tabBarItem" title="" image="list.dash" catalog="system" id="ud9-La-Mbv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dah-JI-obD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -276,11 +283,11 @@
             </objects>
             <point key="canvasLocation" x="-1229.5999999999999" y="-109.29535232383809"/>
         </scene>
-        <!--Item 2-->
+        <!--Navigation Controller-->
         <scene sceneID="nGz-9Y-rO8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="59H-p3-jne" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="fV4-cG-tcV"/>
+                    <tabBarItem key="tabBarItem" title="" image="circle.grid.3x3.fill" catalog="system" id="fV4-cG-tcV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Rv-TX-eMM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -297,6 +304,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="circle.grid.3x3.fill" catalog="system" width="128" height="112"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -13,11 +13,14 @@ class SentMemesTableViewController: UIViewController {
 
 extension SentMemesTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return AppDelegate.memes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let memeList = AppDelegate.memes
+        let memeTableViewCell = MemeTableViewCell()
+        memeTableViewCell.setupCell(meme: memeList[indexPath.row])
+        return memeTableViewCell
     }
 
 }
