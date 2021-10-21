@@ -9,13 +9,6 @@ import AVFoundation
 import UIKit
 
 class ViewController: UIViewController {
-    // MARK: Private Properties
-    private var deviceHasCamera: Bool {
-        return UIImagePickerController.isSourceTypeAvailable(.camera)
-    }
-    private var deviceHasPhotoLibrary: Bool {
-        return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-    }
 
     // MARK: Outlets
     @IBOutlet private weak var memeContainerView: UIView!
@@ -27,40 +20,12 @@ class ViewController: UIViewController {
     @IBOutlet private weak var topTextField: UITextField!
     @IBOutlet private weak var bottomTextField: UITextField!
 
-    // MARK: Actions
-    @IBAction func didTapCameraButton(_ sender: Any) {
-        let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
-        present(imagePickerController, animated: true)
+    // MARK: Private Properties
+    private var deviceHasCamera: Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
     }
-
-    @IBAction func didTapAlbumButton(_ sender: Any) {
-        let imagePickerController = buildImagePickerControllerFor(sourceType: .photoLibrary)
-        present(imagePickerController, animated: true)
-    }
-
-    @IBAction func didTapShareButton(_ sender: Any) {
-        let memeToShare = mergeImageWithTextFieldsIntoASingleImage()
-        let itemsToShare = [memeToShare]
-        let activityView = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
-
-        activityView.completionWithItemsHandler = { [weak self] (_, completed: Bool, _, _) in
-            if completed {
-                self?.saveMemeIntoPhotos(meme: memeToShare)
-            }
-        }
-        present(activityView, animated: true)
-    }
-
-    @IBAction func didTapCancelButton(_ sender: Any) {
-        setUpScreen()
-    }
-
-    @IBAction func textFieldEditingChanged(_ sender: UITextField) {
-        guard let textFieldText = sender.text else {
-            sender.attributedText = buildNSAttributedString(with: "")
-            return
-        }
-        sender.attributedText = buildNSAttributedString(with: textFieldText)
+    private var deviceHasPhotoLibrary: Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
     }
 
     // MARK: Lifecycle
@@ -93,19 +58,18 @@ class ViewController: UIViewController {
         shareButton.isEnabled = image != nil
         cancelButton.isEnabled = image != nil
 
-        topTextField.clearsOnBeginEditing = true
-        topTextField.attributedText = buildNSAttributedString(with: "TOP")
-        topTextField.isHidden = shouldHideTextFields
-        topTextField.returnKeyType = .done
-        topTextField.delegate = self
-
-        bottomTextField.clearsOnBeginEditing = true
-        bottomTextField.attributedText = buildNSAttributedString(with: "BOTTOM")
-        bottomTextField.isHidden = shouldHideTextFields
-        bottomTextField.returnKeyType = .done
-        bottomTextField.delegate = self
+        setupTextField(textField: topTextField, text: "TOP", shouldHide: shouldHideTextFields)
+        setupTextField(textField: bottomTextField, text: "BOTTOM", shouldHide: shouldHideTextFields)
 
         imageView.image = image
+    }
+
+    private func setupTextField(textField: UITextField, text: String, shouldHide: Bool) {
+        textField.clearsOnBeginEditing = true
+        textField.attributedText = buildNSAttributedString(with: text)
+        textField.returnKeyType = .done
+        textField.isHidden = shouldHide
+        textField.delegate = self
     }
 
     private func buildNSAttributedString(with text: String) -> NSAttributedString {
@@ -129,8 +93,8 @@ class ViewController: UIViewController {
         bottomTextField.endEditing(true)
     }
 
-    private func saveMemeIntoPhotos(meme: UIImage) {
-        UIImageWriteToSavedPhotosAlbum(meme, nil, nil, nil)
+    private func saveMemeIntoPhotos(meme: Meme) {
+        UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
     }
 
     private func subscribeToKeyboardNotifications() {
@@ -140,20 +104,7 @@ class ViewController: UIViewController {
     }
 
     private func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if bottomTextField.isFirstResponder {
-            view.frame.origin.y = -getKeyboardHeight(notification)
-        }
-    }
-
-    @objc func keyboardWillHide(_ notification: Notification) {
-        if bottomTextField.isFirstResponder {
-            view.frame.origin.y = 0
-        }
+        NotificationCenter.default.removeObserver(self)
     }
 
     private func getKeyboardHeight(_ notification: Notification) -> CGFloat {
@@ -161,6 +112,64 @@ class ViewController: UIViewController {
         let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
+
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y = -getKeyboardHeight(notification)
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y = 0
+        }
+    }
+
+    // MARK: Actions
+    @IBAction func didTapCameraButton(_ sender: Any) {
+        let imagePickerController = buildImagePickerControllerFor(sourceType: .camera)
+        present(imagePickerController, animated: true)
+    }
+
+    @IBAction func didTapAlbumButton(_ sender: Any) {
+        let imagePickerController = buildImagePickerControllerFor(sourceType: .photoLibrary)
+        present(imagePickerController, animated: true)
+    }
+
+    @IBAction func didTapShareButton(_ sender: Any) {
+        guard let originalImage = imageView.image else {
+            print("Isn't usual to make a meme without an image :P ")
+            return
+        }
+        let meme = Meme(topText: topTextField.text ?? "",
+                        bottomText: bottomTextField.text ?? "",
+                        originalImage: originalImage,
+                        memedImage: mergeImageWithTextFieldsIntoASingleImage())
+
+        let itemsToShare = [meme.memedImage]
+        let activityView = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+
+        activityView.completionWithItemsHandler = { [weak self] (_, completed: Bool, _, _) in
+            if completed {
+                self?.saveMemeIntoPhotos(meme: meme)
+            }
+        }
+        present(activityView, animated: true)
+    }
+
+    @IBAction func didTapCancelButton(_ sender: Any) {
+        setUpScreen()
+    }
+
+    @IBAction func textFieldEditingChanged(_ sender: UITextField) {
+        guard let textFieldText = sender.text else {
+            sender.attributedText = buildNSAttributedString(with: "")
+            return
+        }
+        sender.attributedText = buildNSAttributedString(with: textFieldText)
+    }
+
+
 }
 
 // MARK: UIImagePickerControllerDelegate
