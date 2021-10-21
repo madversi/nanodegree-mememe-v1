@@ -5,7 +5,6 @@
 //  Created by Helder Marcelo Adversi Junio on 20/10/21.
 //
 
-import Foundation
 import UIKit
 
 struct Meme {

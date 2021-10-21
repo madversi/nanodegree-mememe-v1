@@ -8,9 +8,14 @@
 import UIKit
 
 class MemeDetailViewController: UIViewController {
-    var meme: Meme!
-    @IBOutlet weak var imageView: UIImageView!
 
+    // MARK: Outlets
+    @IBOutlet private weak var imageView: UIImageView!
+
+    // MARK: Properties
+    var meme: Meme!
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let meme = meme else {

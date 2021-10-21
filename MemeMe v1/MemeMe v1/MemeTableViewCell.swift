@@ -8,9 +8,11 @@
 import UIKit
 
 class MemeTableViewCell: UITableViewCell {
-    @IBOutlet weak var memeImageView: UIImageView!
-    @IBOutlet weak var memeLabel: UILabel!
+    // MARK: Outlets
+    @IBOutlet private weak var memeImageView: UIImageView!
+    @IBOutlet private weak var memeLabel: UILabel!
 
+    // MARK: Internal funcs
     func setupCell(meme: Meme) {
         memeImageView.image = meme.memedImage
         memeLabel.text = meme.topText + " " + meme.bottomText

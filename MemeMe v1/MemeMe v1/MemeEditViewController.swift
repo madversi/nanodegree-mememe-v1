@@ -114,7 +114,7 @@ class MemeEditViewController: UIViewController {
     }
 
     private func addInMemeList(meme: Meme) {
-        AppDelegate.memes.append(meme)
+        AppDelegate.shared.memes.append(meme)
     }
 
     @objc private func keyboardWillShow(_ notification: Notification) {
