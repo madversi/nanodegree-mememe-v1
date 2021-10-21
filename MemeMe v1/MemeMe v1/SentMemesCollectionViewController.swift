@@ -8,7 +8,28 @@
 import UIKit
 
 class SentMemesCollectionViewController: UIViewController {
-    
+
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupFlowLayout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
+
+    private func setupFlowLayout() {
+        let space:CGFloat = 3.0
+        let dimension = (view.frame.size.width - (2 * space)) / 3.0
+
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
+    }
 }
 
 extension SentMemesCollectionViewController: UICollectionViewDataSource {
@@ -17,10 +38,17 @@ extension SentMemesCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let memeList = AppDelegate.memes
+        let currentMeme = memeList[indexPath.row]
+        let memeCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? MemeCollectionViewCell
+
+        guard let cell = memeCollectionViewCell else {
+            return MemeCollectionViewCell()
+        }
+
+        cell.setupCell(meme: currentMeme)
+        return cell
     }
-
-
 }
 
 extension SentMemesCollectionViewController: UICollectionViewDelegate {
