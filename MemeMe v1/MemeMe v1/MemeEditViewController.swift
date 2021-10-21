@@ -8,7 +8,7 @@
 import AVFoundation
 import UIKit
 
-class ViewController: UIViewController {
+class MemeEditViewController: UIViewController {
 
     // MARK: Outlets
     @IBOutlet private weak var memeContainerView: UIView!
@@ -56,7 +56,6 @@ class ViewController: UIViewController {
         cameraButton.isEnabled = deviceHasCamera && image == nil
         albumButton.isEnabled = deviceHasPhotoLibrary && image == nil
         shareButton.isEnabled = image != nil
-        cancelButton.isEnabled = image != nil
 
         setupTextField(textField: topTextField, text: "TOP", shouldHide: shouldHideTextFields)
         setupTextField(textField: bottomTextField, text: "BOTTOM", shouldHide: shouldHideTextFields)
@@ -93,8 +92,9 @@ class ViewController: UIViewController {
         bottomTextField.endEditing(true)
     }
 
-    private func saveMemeIntoPhotos(meme: Meme) {
+    private func saveMeme(meme: Meme) {
         UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
+        addInMemeList(meme: meme)
     }
 
     private func subscribeToKeyboardNotifications() {
@@ -113,15 +113,21 @@ class ViewController: UIViewController {
         return keyboardSize.cgRectValue.height
     }
 
+    private func addInMemeList(meme: Meme) {
+        AppDelegate.shared.memes.append(meme)
+    }
+
     @objc private func keyboardWillShow(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
+            view.setNeedsLayout()
         }
     }
 
     @objc private func keyboardWillHide(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = 0
+            view.setNeedsLayout()
         }
     }
 
@@ -151,14 +157,15 @@ class ViewController: UIViewController {
 
         activityView.completionWithItemsHandler = { [weak self] (_, completed: Bool, _, _) in
             if completed {
-                self?.saveMemeIntoPhotos(meme: meme)
+                self?.saveMeme(meme: meme)
+                self?.dismiss(animated: true, completion: nil)
             }
         }
         present(activityView, animated: true)
     }
 
     @IBAction func didTapCancelButton(_ sender: Any) {
-        setUpScreen()
+        dismiss(animated: true, completion: nil)
     }
 
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
@@ -169,11 +176,10 @@ class ViewController: UIViewController {
         sender.attributedText = buildNSAttributedString(with: textFieldText)
     }
 
-
 }
 
 // MARK: UIImagePickerControllerDelegate
-extension ViewController: UIImagePickerControllerDelegate {
+extension MemeEditViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         guard let image = info[.originalImage] as? UIImage else {
@@ -185,10 +191,10 @@ extension ViewController: UIImagePickerControllerDelegate {
 }
 
 // MARK: UINavigationControllerDelegate
-extension ViewController: UINavigationControllerDelegate {}
+extension MemeEditViewController: UINavigationControllerDelegate {}
 
 // MARK: UITextFieldDelegate
-extension ViewController: UITextFieldDelegate {
+extension MemeEditViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
