@@ -8,7 +8,7 @@
 import AVFoundation
 import UIKit
 
-class ViewController: UIViewController {
+class MemeEditViewController: UIViewController {
 
     // MARK: Outlets
     @IBOutlet private weak var memeContainerView: UIView!
@@ -179,7 +179,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: UIImagePickerControllerDelegate
-extension ViewController: UIImagePickerControllerDelegate {
+extension MemeEditViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         guard let image = info[.originalImage] as? UIImage else {
@@ -191,10 +191,10 @@ extension ViewController: UIImagePickerControllerDelegate {
 }
 
 // MARK: UINavigationControllerDelegate
-extension ViewController: UINavigationControllerDelegate {}
+extension MemeEditViewController: UINavigationControllerDelegate {}
 
 // MARK: UITextFieldDelegate
-extension ViewController: UITextFieldDelegate {
+extension MemeEditViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
