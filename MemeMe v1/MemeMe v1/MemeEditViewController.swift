@@ -92,8 +92,9 @@ class MemeEditViewController: UIViewController {
         bottomTextField.endEditing(true)
     }
 
-    private func saveMemeIntoPhotos(meme: Meme) {
+    private func saveMeme(meme: Meme) {
         UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
+        addInMemeList(meme: meme)
     }
 
     private func subscribeToKeyboardNotifications() {
@@ -158,7 +159,8 @@ class MemeEditViewController: UIViewController {
 
         activityView.completionWithItemsHandler = { [weak self] (_, completed: Bool, _, _) in
             if completed {
-                self?.saveMemeIntoPhotos(meme: meme)
+                self?.saveMeme(meme: meme)
+                self?.dismiss(animated: true, completion: nil)
             }
         }
         present(activityView, animated: true)
