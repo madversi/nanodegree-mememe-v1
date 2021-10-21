@@ -56,7 +56,6 @@ class MemeEditViewController: UIViewController {
         cameraButton.isEnabled = deviceHasCamera && image == nil
         albumButton.isEnabled = deviceHasPhotoLibrary && image == nil
         shareButton.isEnabled = image != nil
-        cancelButton.isEnabled = image != nil
 
         setupTextField(textField: topTextField, text: "TOP", shouldHide: shouldHideTextFields)
         setupTextField(textField: bottomTextField, text: "BOTTOM", shouldHide: shouldHideTextFields)
@@ -166,7 +165,7 @@ class MemeEditViewController: UIViewController {
     }
 
     @IBAction func didTapCancelButton(_ sender: Any) {
-        setUpScreen()
+        dismiss(animated: true, completion: nil)
     }
 
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
