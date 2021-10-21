@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Sent Memes Collection View Controller-->
+        <!--Sent Memes-->
         <scene sceneID="0sD-nD-G3r">
             <objects>
                 <viewController id="zV6-X7-p6R" customClass="SentMemesCollectionViewController" customModule="MemeMe_v1" customModuleProvider="target" sceneMemberID="viewController">
@@ -73,7 +73,13 @@
                             <constraint firstItem="mzI-FY-cDE" firstAttribute="leading" secondItem="j50-Lh-LXg" secondAttribute="leading" id="lhb-RY-hWw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="LdI-Zp-Wiw"/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="LdI-Zp-Wiw">
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="U2u-Xq-YQv">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="fRI-S9-ZqL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="mzI-FY-cDE" id="UtL-Em-EEg"/>
                         <outlet property="flowLayout" destination="11a-Nb-lVa" id="0z6-oI-3gb"/>
@@ -335,6 +341,9 @@
             <point key="canvasLocation" x="-1230" y="617"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fRI-S9-ZqL"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="circle.grid.3x3.fill" catalog="system" width="128" height="112"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
