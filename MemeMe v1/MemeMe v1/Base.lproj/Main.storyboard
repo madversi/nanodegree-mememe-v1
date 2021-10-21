@@ -86,10 +86,10 @@
             </objects>
             <point key="canvasLocation" x="1860" y="220"/>
         </scene>
-        <!--View Controller-->
+        <!--Sent Memes-->
         <scene sceneID="JLR-59-h2T">
             <objects>
-                <viewController id="AQM-LW-r7W" sceneMemberID="viewController">
+                <viewController id="AQM-LW-r7W" customClass="SentMemesTableViewController" customModule="MemeMe_v1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LnN-1B-ouB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,7 +118,10 @@
                             <constraint firstItem="wE1-Xw-p4E" firstAttribute="top" secondItem="fAB-zH-AWo" secondAttribute="top" id="wXi-UX-Z6t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="95S-fa-tsF"/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="95S-fa-tsF"/>
+                    <connections>
+                        <outlet property="memesTableView" destination="wE1-Xw-p4E" id="cre-TI-P0U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hT1-bk-Uzg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
