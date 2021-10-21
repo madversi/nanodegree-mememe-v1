@@ -51,5 +51,13 @@ extension SentMemesCollectionViewController: UICollectionViewDataSource {
 }
 
 extension SentMemesCollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let memeDetailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as? MemeDetailViewController
 
+        guard let detailController = memeDetailController else {
+            return
+        }
+        detailController.meme = AppDelegate.memes[indexPath.row]
+        navigationController?.pushViewController(detailController, animated: true)
+    }
 }
