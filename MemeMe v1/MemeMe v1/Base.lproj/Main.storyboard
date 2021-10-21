@@ -107,6 +107,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="AQM-LW-r7W" id="zVD-Lp-3ny"/>
+                                    <outlet property="delegate" destination="AQM-LW-r7W" id="TSh-RN-ERW"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fAB-zH-AWo"/>

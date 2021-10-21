@@ -9,10 +9,10 @@ import UIKit
 
 class MemeTableViewCell: UITableViewCell {
     @IBOutlet weak var memeImageView: UIImageView!
-    @IBOutlet weak var memeTextField: UITextField!
+    @IBOutlet weak var memeLabel: UILabel!
 
     func setupCell(meme: Meme) {
         memeImageView.image = meme.memedImage
-        memeTextField.text = meme.topText + meme.bottomText
+        memeLabel.text = meme.topText + " " + meme.bottomText
     }
 }

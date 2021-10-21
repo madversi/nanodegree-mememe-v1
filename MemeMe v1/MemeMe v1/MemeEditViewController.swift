@@ -152,8 +152,6 @@ class MemeEditViewController: UIViewController {
                         originalImage: originalImage,
                         memedImage: mergeImageWithTextFieldsIntoASingleImage())
 
-        addInMemeList(meme: meme)
-
         let itemsToShare = [meme.memedImage]
         let activityView = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
 
