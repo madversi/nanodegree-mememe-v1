@@ -113,6 +113,11 @@ class ViewController: UIViewController {
         return keyboardSize.cgRectValue.height
     }
 
+    private func addInMemeList(meme: Meme) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.memes.append(meme)
+    }
+
     @objc private func keyboardWillShow(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
@@ -146,6 +151,8 @@ class ViewController: UIViewController {
                         originalImage: originalImage,
                         memedImage: mergeImageWithTextFieldsIntoASingleImage())
 
+        addInMemeList(meme: meme)
+
         let itemsToShare = [meme.memedImage]
         let activityView = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
 
@@ -168,7 +175,6 @@ class ViewController: UIViewController {
         }
         sender.attributedText = buildNSAttributedString(with: textFieldText)
     }
-
 
 }
 
