@@ -2,28 +2,20 @@
 //  MemeDetailViewController.swift
 //  MemeMe v1
 //
-//  Created by Helder Marcelo Adversi Junio on 21/10/21.
+//  Created by Helder M Adversi Jr on 21/10/21.
 //
 
 import UIKit
 
 class MemeDetailViewController: UIViewController {
+    var meme: Meme!
+    @IBOutlet weak var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        guard let meme = meme else {
+            return
+        }
+        imageView.image = meme.memedImage
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

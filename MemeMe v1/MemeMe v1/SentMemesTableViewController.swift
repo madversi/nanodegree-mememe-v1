@@ -40,6 +40,12 @@ extension SentMemesTableViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 extension SentMemesTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // call segue for MemeDetailVC passing meme object
+        let memeDetailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as? MemeDetailViewController
+
+        guard let detailController = memeDetailController else {
+            return
+        }
+        detailController.meme = AppDelegate.memes[indexPath.row]
+        navigationController?.pushViewController(detailController, animated: true)
     }
 }

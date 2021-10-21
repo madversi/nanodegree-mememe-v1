@@ -45,7 +45,6 @@ extension SentMemesCollectionViewController: UICollectionViewDataSource {
         guard let cell = memeCollectionViewCell else {
             return MemeCollectionViewCell()
         }
-
         cell.setupCell(meme: currentMeme)
         return cell
     }
